@@ -47,6 +47,16 @@ require("lazy").setup({
 		  build = ":TSUpdate"
 	  },
 
+	  -- mason : external package manager such as lsp/linter
+	  {
+		  "williamboman/mason.nvim",
+		  "williamboman/mason-lspconfig.nvim"
+	  },
+
+	  -- lsp config
+	  {
+		  "neovim/nvim-lspconfig",
+	  },
 
   },
   -- Configure any other settings here. See the documentation for more details.
