@@ -1,13 +1,90 @@
-require("mason").setup()
-require("mason-lspconfig").setup {
-  ensure_installed = {
-    "lua_ls",
-    "pyright",
-    "eslint",
-    "ts_ls",
-    "clangd",
+-- setup lsp
+local lspconfig = require('lspconfig')
+lspconfig.gopls.setup({
+  cmd = { "gopls" },
+
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_dir = lspconfig.util.root_pattern("go.mod", "go.word", ".git"),
+
+  settings = {
+    gopls = {
+      completeUnimported = true,
+
+      analyses = {
+        unusedparams = true,
+      },
+
+      staticcheck = true,
+    },
+  },
+})
+
+
+lspconfig.clangd.setup({
+  cmd = { "clangd", "--background-index" },
+  filetypes = { "c", "cpp", "h", "hpp", "cc", "hh", "cxx", "hxx" },
+
+  root_dir = lspconfig.util.root_pattern("compile_commands.json", ".git", "Makefile", "CMakeLists.txt"),
+
+  init_options = {
+    clangdFileStatus = true,
   },
 
+  settings = {
+    clangd = {
+      completeUnimported = true,
+
+      analyses = {
+        unusedparams = true,
+      },
+
+      staticcheck = true,
+    },
+  },
+})
+
+
+-- rust lsp but with rust-tool
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
+
+-- lspconfig.rust_analyzer.setup({
+--   cmd = { "rust-analyzer" },
+--   filetypes = { "rust" },
+--
+--   root_dir = lspconfig.util.root_pattern("Cargo.toml", ".git"),
+--
+--   settings = {
+--     ["rust-analyzer"] = {
+--       cargo = {
+--         allFeatures = true,
+--         checkOnSave = {
+--           command = "clippy",
+--           extraArgs = { "--all-targets", "--all-features" },
+--         },
+--       },
+--       checkOnSave = {
+--         command = "clippy",
+--       },
+--     },
+--   },
+-- })
+--
+
+
+require("mason").setup()
+require("mason-lspconfig").setup {
 
   handlers = {
     -- this first function is the "default handler"
@@ -51,3 +128,4 @@ require("mason-lspconfig").setup {
     end,
   }
 }
+

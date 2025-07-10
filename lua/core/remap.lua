@@ -12,7 +12,6 @@ vim.keymap.set('x', 'p', '"_dP', { desc = "Paste without yanking" })
 
 vim.keymap.set('n', "<leader>y", "\"+y", { desc = "Copy to system clipboard" })
 vim.keymap.set('v', "<leader>y", "\"+y", { desc = "Copy to system clipboard" })
-vim.keymap.set('n', "<leader>Y", "\"*y", { desc = "Copy to system clipboard" })
 
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = "format file" })
 
@@ -20,3 +19,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
   { desc = "Replace word under cursor" })
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { callback = vim.lsp.buf.format})
+
+
+-- binds for dap
+

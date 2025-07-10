@@ -8,8 +8,8 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
-vim.opt.swapfile = true
-vim.opt.backup = true
+vim.opt.swapfile = false
+vim.opt.backup = false
 vim.opt.undofile = true
 
 vim.opt.incsearch = true
@@ -23,6 +23,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = '80'
+-- vim.opt.colorcolumn = '80'
 
 vim.g.mapleader = ' '

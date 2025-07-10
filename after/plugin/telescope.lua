@@ -2,11 +2,24 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find project files' })
 
 vim.keymap.set(
-	'n', '<leader>ps', 
-	function()
-		builtin.grep_string({ search = vim.fn.input("Grep > ") });
-	end,
-	{ desc = 'Search in project'}
+  'n', '<leader>ps',
+  function()
+    builtin.grep_string({ search = vim.fn.input("Grep > ") });
+  end,
+  { desc = 'Search in project' }
 )
 
-
+require("telescope").setup {
+  defaults = {
+    file_ignore_patterns = {
+      ".git/",
+      "node_modules/",
+      "vendor/",
+      "obj/",
+      "bin/",
+      "build/",
+      "dist/",
+      "eigen",
+    }
+  }
+}
