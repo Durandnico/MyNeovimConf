@@ -14,24 +14,27 @@ end
 local options = {
   ensure_installed = {
     "lua-language-server",
-    "pyright",
-    "eslint-lsp",
-    "typescript-language-server",
+
+    -- python
+    "pyright", -- lsp
 
     -- cpp
-    "clangd",
-    "codelldb",
+    "clangd",   -- lsp
+    "codelldb", -- debugger
+
+
+    -- typescript
+    "prettierd",                  -- formatter
+    "eslint_d",                   -- linter
+    "typescript-language-server", -- lsp
+
 
     -- go
-    "gopls",
-    "goimports-reviser",
-    "delve",
-
-    -- rust
-    "rust-analyzer",
-
+    "gopls",             -- lsp
+    "goimports-reviser", -- code action
+    -- "delve", -- debugger
   },
- max_concurrent_installers = 10,
+  max_concurrent_installers = 10,
 }
 
 mason.setup(options)
@@ -41,9 +44,8 @@ vim.api.nvim_create_user_command("MasonInstallAll", function()
   -- check if plugin is already ensure_installed
   for _, plugin in ipairs(options.ensure_installed) do
     if not masonRegister.is_installed(plugin) then
-      vim.cmd("MasonInstall " .. table.concat({plugin}, " "))
+      vim.cmd("MasonInstall " .. table.concat({ plugin }, " "))
     end
-
   end
 end, {})
 

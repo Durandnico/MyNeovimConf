@@ -12,14 +12,23 @@ vim.keymap.set(
 require("telescope").setup {
   defaults = {
     file_ignore_patterns = {
+      -- Ignore common directories
       ".git/",
-      "node_modules/",
       "vendor/",
-      "obj/",
       "bin/",
       "build/",
       "dist/",
+
+      -- Node (JS/TS) dependencies
+      "node_modules/",
+
+      -- Python virtual environments
+      ".venv/",
+
+      -- C/C++ build directories
+      "obj/",
       "eigen",
+
     }
   }
 }

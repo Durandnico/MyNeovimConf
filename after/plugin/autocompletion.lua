@@ -3,11 +3,11 @@ require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
   sources = {
-    {name = 'nvim_lsp'},
-    {name = 'buffer'},
-    {name = 'path'},
-    {name = 'luasnip'},
-    {name = 'nvim_lua'},
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'luasnip' },
+    { name = 'nvim_lua' },
   },
 
   mapping = {
@@ -25,7 +25,7 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     }),
- },
+  },
 
   snippet = {
     expand = function(args)
