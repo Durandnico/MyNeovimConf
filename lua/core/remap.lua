@@ -20,6 +20,3 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { callback = vim.lsp.buf.format})
 
-
--- binds for dap
-
