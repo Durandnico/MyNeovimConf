@@ -1,52 +1,52 @@
 local present, mason = pcall(require, "mason")
 
 if not present then
-  return
+	return
 end
 
 local pres, masonRegister = pcall(require, "mason-registry")
 
 if not pres then
-  return
+	return
 end
 
-
 local options = {
-  ensure_installed = {
-    "lua-language-server",
+	ensure_installed = {
+		"lua-language-server", -- lsp
+		"stylua", -- formatter
+		"shfmt ", -- formatter
 
-    -- python
-    "pyright", -- lsp
+		-- python
+		"pyright", -- lsp
+		"isort", -- import sorter
+		"black", -- formatter
 
-    -- cpp
-    "clangd",   -- lsp
-    "codelldb", -- debugger
+		-- cpp
+		"clangd", -- lsp
+		"codelldb", -- debugger
 
+		-- typescript
+		"prettierd", -- formatter
+		"eslint_d", -- linter
+		"typescript-language-server", -- lsp
 
-    -- typescript
-    "prettierd",                  -- formatter
-    "eslint_d",                   -- linter
-    "typescript-language-server", -- lsp
-
-
-    -- go
-    "gopls",             -- lsp
-    "goimports-reviser", -- code action
-    -- "delve", -- debugger
-  },
-  max_concurrent_installers = 10,
+		-- go
+		"gopls", -- lsp
+		"goimports-reviser", -- code action
+		-- "delve", -- debugger
+	},
+	max_concurrent_installers = 10,
 }
 
 mason.setup(options)
 
-
 vim.api.nvim_create_user_command("MasonInstallAll", function()
-  -- check if plugin is already ensure_installed
-  for _, plugin in ipairs(options.ensure_installed) do
-    if not masonRegister.is_installed(plugin) then
-      vim.cmd("MasonInstall " .. table.concat({ plugin }, " "))
-    end
-  end
+	-- check if plugin is already ensure_installed
+	for _, plugin in ipairs(options.ensure_installed) do
+		if not masonRegister.is_installed(plugin) then
+			vim.cmd("MasonInstall " .. table.concat({ plugin }, " "))
+		end
+	end
 end, {})
 
 -- vim.cmd("MasonInstallAll")
