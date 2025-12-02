@@ -118,6 +118,12 @@ require("lazy").setup({
 			"stevearc/conform.nvim",
 			event = { "BufReadPre", "BufNewFile" },
 		},
+
+		-- linter
+		{
+			"mfussenegger/nvim-lint",
+			event = { "BufReadPre", "BufNewFile" },
+		},
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.

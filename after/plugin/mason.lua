@@ -20,6 +20,7 @@ local options = {
 		"pyright", -- lsp
 		"isort", -- import sorter
 		"black", -- formatter
+		"ruff", -- linter
 
 		-- cpp
 		"clangd", -- lsp
@@ -34,6 +35,7 @@ local options = {
 		"gopls", -- lsp
 		"goimports-reviser", -- code action
 		-- "delve", -- debugger
+		"revive", -- linter
 	},
 	max_concurrent_installers = 10,
 }
