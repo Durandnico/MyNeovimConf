@@ -24,9 +24,21 @@ local function getMasonLSP()
 	return lsp
 end
 
+local function getCurrentLSP()
+	local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+	if clients and #clients > 0 then
+		local names = {}
+		for _, client in ipairs(clients) do
+			table.insert(names, client.name)
+		end
+		return "LSP: " .. table.concat(names, " ")
+	end
+	return "No LSP active"
+end
+
 -- setup each lsp, stylish but not the best way
 for _, lsp in ipairs(getMasonLSP()) do
-	print("Setting up LSP: " .. lsp)
+	-- print("Setting up LSP: " .. lsp)
 	vim.lsp.config[lsp] = {
 
 		on_attach = function(client, bufnr)
@@ -79,14 +91,13 @@ for _, lsp in ipairs(getMasonLSP()) do
 			vim.keymap.set("n", "<C-h>", function()
 				vim.lsp.buf.signature_help()
 			end, opts)
-
-			opts.desc = "get LSP info"
-			vim.keymap.set("n", "<leader>if", function()
-				print("Current LSP: " .. client.name)
-			end, opts)
 		end,
 	}
 end
+
+vim.keymap.set("n", "<leader>ip", function()
+	print(getCurrentLSP())
+end, { desc = "Show current LSP" })
 
 -- extend config
 vim.lsp.config("gopls", {

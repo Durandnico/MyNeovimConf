@@ -54,7 +54,10 @@ end
 -- print(getCurrentFormatter())
 vim.keymap.set({ "n", "v" }, "<leader>f", function()
 	format_call()
-	print("Formatting with : " .. getCurrentFormatter())
 end, { desc = "Format file or range (in visual mode)" })
+
+vim.keymap.set("n", "<leader>if", function()
+	print(getCurrentFormatter())
+end, { desc = "Show current formatter" })
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { callback = format_call })

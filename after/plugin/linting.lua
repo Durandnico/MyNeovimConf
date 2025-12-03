@@ -20,3 +20,16 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 		lint.try_lint()
 	end,
 })
+
+local function getCurrentLinter()
+	local ft = vim.bo.filetype
+	local linters = lint.linters_by_ft[ft]
+	if linters and #linters > 0 then
+		return "Linter: " .. table.concat(linters, " ")
+	end
+	return "No linter available"
+end
+
+vim.keymap.set("n", "<leader>il", function()
+	print(getCurrentLinter())
+end, { desc = "Show current linter" })
