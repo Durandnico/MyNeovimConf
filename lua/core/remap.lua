@@ -1,7 +1,10 @@
+-- PrimeTime Neovim remaps
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Exit to folder view" })
 
 vim.keymap.set("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
+vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
 vim.keymap.set("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move line down" })
+vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv", { desc = "Move line down" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down half page" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up half page" })
@@ -13,9 +16,6 @@ vim.keymap.set("x", "p", '"_dP', { desc = "Paste without yanking" })
 vim.keymap.set("n", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 
--- old formatting keymap
--- vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = "format file" })
-
 vim.keymap.set(
 	"n",
 	"<leader>s",
@@ -23,4 +23,14 @@ vim.keymap.set(
 	{ desc = "Replace word under cursor" }
 )
 
--- vim.api.nvim_create_autocmd({ "BufWritePre" }, { callback = vim.lsp.buf.format})
+-- Mael's stolen remaps
+--
+-- TIP: Disable arrow keys in normal mode
+vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>', { desc = "Disable left arrow key" })
+vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>', { desc = "Disable right arrow key" })
+vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>', { desc = "Disable up arrow key" })
+vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>', { desc = "Disable down arrow key" })
+
+-- Keep visual selection after indenting
+vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true }, { desc = "Keep selection after indenting" })
+vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true }, { desc = "Keep selection after indenting" })

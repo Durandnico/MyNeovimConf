@@ -18,13 +18,13 @@ vim.opt.hlsearch = false
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 
 -- vim.opt.colorcolumn = '80'
 
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = "unnamedplus"
