@@ -124,6 +124,15 @@ require("lazy").setup({
 			"mfussenegger/nvim-lint",
 			event = { "BufReadPre", "BufNewFile" },
 		},
+
+		-- nvim tree
+		{
+			"nvim-tree/nvim-tree.lua",
+			lazy = false,
+			dependencies = {
+				"nvim-tree/nvim-web-devicons", -- optional, for file icons
+			},
+		},
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.

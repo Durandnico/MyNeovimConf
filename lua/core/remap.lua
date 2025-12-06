@@ -1,5 +1,5 @@
 -- PrimeTime Neovim remaps
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Exit to folder view" })
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Exit to folder view" })
 
 vim.keymap.set("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
 vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
@@ -34,3 +34,25 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>', { desc = "Disab
 -- Keep visual selection after indenting
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true }, { desc = "Keep selection after indenting" })
 vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true }, { desc = "Keep selection after indenting" })
+
+-- My custom remaps
+-- nvim-tree
+vim.keymap.set("n", "<leader>pv", ":NvimTreeFocus<CR>", { desc = "Toggle file explorer" })
+vim.keymap.set("n", "<leader>pc", ":NvimTreeClose<CR>", { desc = "Close file explorer" })
+
+-- Close vim if nvim-tree is the last buffer (after closing a buffer)
+-- Thanks to @@beauwilliams
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = vim.api.nvim_create_augroup("NvimTreeClose", { clear = true }),
+	pattern = "NvimTree_*",
+	callback = function()
+		local layout = vim.api.nvim_call_function("winlayout", {})
+		if
+			layout[1] == "leaf"
+			and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
+			and layout[3] == nil
+		then
+			vim.cmd("confirm quit")
+		end
+	end,
+})
