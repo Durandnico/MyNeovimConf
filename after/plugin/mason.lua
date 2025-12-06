@@ -12,8 +12,13 @@ end
 
 local options = {
 	ensure_installed = {
-		"lua-language-server", -- lsp
+		-- lua
+		-- "lua-language-server", -- lsp
+		-- fix : issue with newer version of libbfd-2.38+, so pin to 3.15.0 for now
+		"lua-language-server@3.15.0",
 		"stylua", -- formatter
+
+		-- bash
 		"shfmt ", -- formatter
 
 		-- python
