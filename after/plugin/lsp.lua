@@ -36,7 +36,11 @@ local function getCurrentLSP()
 	return "No LSP active"
 end
 
+-- ======================================================================
+-- base config for all lsp
 -- setup each lsp, stylish but not the best way
+-- ======================================================================
+
 for _, lsp in ipairs(getMasonLSP()) do
 	-- print("Setting up LSP: " .. lsp)
 	vim.lsp.config[lsp] = {
@@ -99,26 +103,43 @@ vim.keymap.set("n", "<leader>ip", function()
 	print(getCurrentLSP())
 end, { desc = "Show current LSP" })
 
--- extend config
-vim.lsp.config("gopls", {
-	cmd = { "gopls" },
+-- ======================================================================
+-- EXTEND CONFIG FOR EACH LSP
+-- ======================================================================
 
-	root_markers = { "go.mod", "go.word", ".git" },
-	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+-- Not really using go
 
+-- vim.lsp.config("gopls", {
+-- 	cmd = { "gopls" },
+--
+-- 	root_markers = { "go.mod", "go.word", ".git" },
+-- 	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+--
+-- 	settings = {
+-- 		gopls = {
+-- 			completeUnimported = true,
+--
+-- 			analyses = {
+-- 				unusedparams = true,
+-- 			},
+--
+-- 			staticcheck = true,
+-- 		},
+-- 	},
+-- })
+
+-- lua LSP
+vim.lsp.config("lua_ls", {
 	settings = {
-		gopls = {
-			completeUnimported = true,
-
-			analyses = {
-				unusedparams = true,
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
 			},
-
-			staticcheck = true,
 		},
 	},
 })
 
+-- C/C++ LSP
 vim.lsp.config("clangd", {
 	cmd = { "clangd", "--background-index" },
 	filetypes = { "c", "cpp", "h", "hpp", "cc", "hh", "cxx", "hxx" },

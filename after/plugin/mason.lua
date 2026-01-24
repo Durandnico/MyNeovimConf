@@ -36,11 +36,12 @@ local options = {
 		"eslint_d", -- linter
 		"typescript-language-server", -- lsp
 
+		-- not really using go
 		-- go
-		"gopls", -- lsp
-		"goimports-reviser", -- code action
+		-- "gopls", -- lsp
+		-- "goimports-reviser", -- code action
 		-- "delve", -- debugger
-		"revive", -- linter
+		-- "revive", -- linter
 	},
 	max_concurrent_installers = 10,
 }
@@ -55,5 +56,3 @@ vim.api.nvim_create_user_command("MasonInstallAll", function()
 		end
 	end
 end, {})
-
--- vim.cmd("MasonInstallAll")

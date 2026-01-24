@@ -1,24 +1,42 @@
-require 'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = {
-    "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline",
-    "javascript", "typescript", "cpp", "python", "go"
-  },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  highlight = {
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
+local ensure_installed = {
+	"c",
+	"lua",
+	"vim",
+	"vimdoc",
+	"query",
+	"markdown",
+	"markdown_inline",
+	"javascript",
+	"typescript",
+	"cpp",
+	"python",
+	"go",
 }
+
+-- require("nvim-treesitter.configs").setup({
+--
+-- 	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
+-- 	ensure_installed = ensure_installed,
+--
+-- 	-- Install parsers synchronously (only applied to `ensure_installed`)
+-- 	sync_install = false,
+--
+-- 	-- Automatically install missing parsers when entering buffer
+-- 	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+-- 	auto_install = false,
+--
+-- 	highlight = {
+-- 		enable = true,
+--
+-- 		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+-- 		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+-- 		-- Using this option may slow down your editor, and you may see some duplicate highlights.
+-- 		-- Instead of true it can also be a list of languages
+-- 		additional_vim_regex_highlighting = false,
+-- 	},
+-- })
+
+-- function to installAll ensured parsers
+vim.api.nvim_create_user_command("TSInstallAll", function()
+	require("nvim-treesitter").install(ensure_installed):wait(300000) -- wait max. 5 minutes
+end, {})

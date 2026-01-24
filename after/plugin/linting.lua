@@ -8,7 +8,7 @@ lint.linters_by_ft = {
 
 	python = { "ruff" },
 
-	go = { "revive" },
+	-- go = { "revive" },
 }
 
 -- setup autocmd to lint automatically kinda anytime
@@ -21,6 +21,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 	end,
 })
 
+-- function to get current linter for the current buffer filetype
 local function getCurrentLinter()
 	local ft = vim.bo.filetype
 	local linters = lint.linters_by_ft[ft]
