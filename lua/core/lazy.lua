@@ -49,12 +49,15 @@ require("lazy").setup({
 		-- mason : external package manager such as lsp/linter
 		{
 			"williamboman/mason.nvim",
-			lazy = false,
+			cmd = "Mason",
 		},
 
 		{
 			"williamboman/mason-lspconfig.nvim",
-			lazy = false,
+			dependencies = {
+				"williamboman/mason.nvim",
+			},
+			event = { "BufReadPre", "BufNewFile" },
 		},
 
 		-- lsp config
@@ -72,6 +75,7 @@ require("lazy").setup({
 				"saadparwaiz1/cmp_luasnip",
 				"hrsh7th/cmp-nvim-lua",
 			},
+			event = "InsertEnter",
 		},
 
 		-- Snippets
