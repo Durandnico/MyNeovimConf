@@ -46,9 +46,6 @@ for _, lsp in ipairs(getMasonLSP()) do
 	vim.lsp.config[lsp] = {
 
 		on_attach = function(client, bufnr)
-			print("") -- because the first print sometimes get ignored (idk why)
-			print("LSP started for " .. client.name)
-
 			local opts = { buffer = bufnr, remap = false, desc = "" }
 
 			opts.desc = "Goto definition"
