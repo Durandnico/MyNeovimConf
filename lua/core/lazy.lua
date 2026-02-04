@@ -191,6 +191,13 @@ require("lazy").setup({
 		-- 		window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
 		-- 	},
 		-- },
+
+		{
+			"danymat/neogen",
+			config = true,
+			-- Uncomment next line if you want to follow only stable versions
+			version = "*",
+		},
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
