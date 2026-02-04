@@ -1,17 +1,12 @@
-local present, mason = pcall(require, "mason")
+local mason = require("mason")
 
-if not present then
-	return
-end
-
-local pres, masonRegister = pcall(require, "mason-registry")
-
-if not pres then
-	return
-end
+local masonRegister = require("mason-registry")
 
 local options = {
 	ensure_installed = {
+		-- vim
+		"vim-language-server",
+
 		-- lua
 		-- "lua-language-server", -- lsp
 		-- fix : issue with newer version of libbfd-2.38+, so pin to 3.15.0 for now
@@ -42,6 +37,9 @@ local options = {
 		-- "goimports-reviser", -- code action
 		-- "delve", -- debugger
 		-- "revive", -- linter
+
+		-- tools
+		"tree-sitter-cli",
 	},
 	max_concurrent_installers = 10,
 }

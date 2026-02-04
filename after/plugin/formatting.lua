@@ -24,7 +24,10 @@ conform.setup({
 
 		lua = { "stylua" },
 
-		python = { "isort", "black" },
+		python = { "isort", "black", options = {
+			treat_comments_as_code = false,
+		} },
+		-- python = { "ruff" },
 
 		javascript = { "prettier" },
 		typescript = { "prettier" },
