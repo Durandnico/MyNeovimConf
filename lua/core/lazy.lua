@@ -37,6 +37,7 @@ require("lazy").setup({
 			name = "catppuccin",
 			config = function()
 				vim.cmd("colorscheme catppuccin-frappe")
+				-- vim.cmd("colorscheme catppuccin")
 			end,
 		},
 
@@ -60,6 +61,13 @@ require("lazy").setup({
 			event = { "BufReadPre", "BufNewFile" },
 		},
 
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			dependencies = {
+				"williamboman/mason.nvim",
+			},
+		},
+
 		-- lsp config
 		{
 			"neovim/nvim-lspconfig",
@@ -68,6 +76,11 @@ require("lazy").setup({
 		-- Autocompletion
 		{
 			"hrsh7th/nvim-cmp",
+			version = false, -- last release is way too old
+			lazy = false,
+
+			-- TODO : find a way to make this lazy with breaking everything x(
+			-- event = { "CompleteChanged", "InsertEnter" },
 			dependencies = {
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-buffer",
@@ -75,7 +88,6 @@ require("lazy").setup({
 				"saadparwaiz1/cmp_luasnip",
 				"hrsh7th/cmp-nvim-lua",
 			},
-			event = "InsertEnter",
 		},
 
 		-- Snippets
@@ -129,6 +141,56 @@ require("lazy").setup({
 				"nvim-tree/nvim-web-devicons", -- optional, for file icons
 			},
 		},
+
+		-- jupyter notebook integration
+		{
+			"vandalt/NotebookNavigator.nvim",
+			dependencies = {
+				-- REPL
+				{
+					"benlubas/molten-nvim", -- alternative repl provider
+				},
+			},
+			event = { "BufReadPre *.ipynb", "BufReadPre *.py" },
+		},
+
+		-- REPL
+		{
+			"benlubas/molten-nvim",
+			-- dependencies = {
+			-- 	"3rd/image.nvim",
+			-- },
+			lazy = "VeryLazy",
+			build = ":UpdateRemotePlugins",
+			init = function()
+				-- these are examples, not defaults. Please see the readme
+				-- vim.g.molten_image_provider = "image.nvim"
+				vim.g.molten_output_win_max_height = 20
+			end,
+		},
+
+		-- transform notebooks to scripts
+		{
+			"GCBallesteros/jupytext.nvim",
+			config = true,
+			-- load only when opening jupytext files
+			event = { "BufReadPre *.ipynb", "BufReadPre *.py" },
+			lazy = false,
+		},
+
+		-- {
+		-- 	-- see the image.nvim readme for more information about configuring this plugin
+		-- 	"3rd/image.nvim",
+		-- 	opts = {
+		-- 		backend = "kitty", -- whatever backend you would like to use
+		-- 		max_width = 100,
+		-- 		max_height = 12,
+		-- 		max_height_window_percentage = math.huge,
+		-- 		max_width_window_percentage = math.huge,
+		-- 		window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+		-- 		window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+		-- 	},
+		-- },
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.

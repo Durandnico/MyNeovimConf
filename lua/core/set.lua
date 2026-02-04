@@ -28,3 +28,6 @@ vim.opt.updatetime = 250
 vim.g.mapleader = " "
 
 vim.o.clipboard = "unnamedplus"
+
+vim.g.python3_host_prog = vim.fn.expand("~/.venv/nvim.venv/bin/python3")
+vim.g.loaded_python3_provider = nil
