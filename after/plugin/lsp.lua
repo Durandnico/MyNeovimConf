@@ -25,7 +25,7 @@ local function getMasonLSP()
 end
 
 local function getCurrentLSP()
-	local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+	local clients = vim.lsp.get_clients({ bufnr = 0 })
 	if clients and #clients > 0 then
 		local names = {}
 		for _, client in ipairs(clients) do
@@ -41,60 +41,57 @@ end
 -- setup each lsp, stylish but not the best way
 -- ======================================================================
 
-for _, lsp in ipairs(getMasonLSP()) do
-	-- print("Setting up LSP: " .. lsp)
-	vim.lsp.config[lsp] = {
+vim.lsp.config("*", {
 
-		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false, desc = "" }
+	on_attach = function(client, bufnr)
+		local opts = { buffer = bufnr, remap = false, desc = "" }
 
-			opts.desc = "Goto definition"
-			vim.keymap.set("n", "gd", function()
-				vim.lsp.buf.definition()
-			end, opts, "Goto definition")
+		opts.desc = "Goto definition"
+		vim.keymap.set("n", "gd", function()
+			vim.lsp.buf.definition()
+		end, opts, "Goto definition")
 
-			opts.desc = "Goto type definition"
-			vim.keymap.set("n", "K", function()
-				vim.lsp.buf.hover()
-			end, opts)
+		opts.desc = "Goto type definition"
+		vim.keymap.set("n", "K", function()
+			vim.lsp.buf.hover()
+		end, opts)
 
-			opts.desc = "open diagnostics"
-			vim.keymap.set("n", "<leader>vd", function()
-				vim.diagnostic.open_float()
-			end, opts)
+		opts.desc = "open diagnostics"
+		vim.keymap.set("n", "<leader>vd", function()
+			vim.diagnostic.open_float()
+		end, opts)
 
-			opts.desc = "next diagnostic"
-			vim.keymap.set("n", "[d", function()
-				vim.lsp.diagnostic.goto_next()
-			end, opts)
+		opts.desc = "next diagnostic"
+		vim.keymap.set("n", "[d", function()
+			vim.lsp.diagnostic.goto_next()
+		end, opts)
 
-			opts.desc = "previous diagnostic"
-			vim.keymap.set("n", "]d", function()
-				vim.lsp.diagnostic.goto_prev()
-			end, opts)
+		opts.desc = "previous diagnostic"
+		vim.keymap.set("n", "]d", function()
+			vim.lsp.diagnostic.goto_prev()
+		end, opts)
 
-			opts.desc = "vim code action"
-			vim.keymap.set("n", "<leader>vca", function()
-				vim.lsp.buf.code_action()
-			end, opts)
+		opts.desc = "vim code action"
+		vim.keymap.set("n", "<leader>vca", function()
+			vim.lsp.buf.code_action()
+		end, opts)
 
-			opts.desc = "vim references"
-			vim.keymap.set("n", "<leader>vrr", function()
-				vim.lsp.buf.references()
-			end, opts)
+		opts.desc = "vim references"
+		vim.keymap.set("n", "<leader>vrr", function()
+			vim.lsp.buf.references()
+		end, opts)
 
-			opts.desc = "vim rename"
-			vim.keymap.set("n", "<leader>vrn", function()
-				vim.lsp.buf.rename()
-			end, opts)
+		opts.desc = "vim rename"
+		vim.keymap.set("n", "<leader>vrn", function()
+			vim.lsp.buf.rename()
+		end, opts)
 
-			opts.desc = "vim signature help"
-			vim.keymap.set("n", "<C-h>", function()
-				vim.lsp.buf.signature_help()
-			end, opts)
-		end,
-	}
-end
+		opts.desc = "vim signature help"
+		vim.keymap.set("n", "<C-h>", function()
+			vim.lsp.buf.signature_help()
+		end, opts)
+	end,
+})
 
 vim.keymap.set("n", "<leader>ip", function()
 	print(getCurrentLSP())
@@ -159,3 +156,28 @@ vim.lsp.config("clangd", {
 		},
 	},
 })
+
+vim.lsp.config("pyright", {
+	settings = {
+		python = {
+			analysis = {
+				diagnosticSeverityOverrides = {
+					reportUnusedExpression = "none",
+				},
+			},
+		},
+	},
+})
+
+vim.lsp.config("ruff", {
+	capabilities = {
+		general = {
+			positionEncodings = { "utf-16" },
+		},
+	},
+})
+
+vim.lsp.enable("pyright")
+
+-- because idk why it's use and so f*ck off
+vim.lsp.stop_client("Github Copilot", true)
