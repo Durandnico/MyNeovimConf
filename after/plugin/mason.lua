@@ -21,6 +21,7 @@ local options = {
 		"isort", -- import sorter
 		"black", -- formatter
 		"ruff", -- linter
+		"mypy", -- typing
 
 		-- cpp
 		"clangd", -- lsp
